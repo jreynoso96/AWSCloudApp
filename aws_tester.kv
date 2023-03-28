@@ -1,0 +1,269 @@
+WindowManager:
+    StartScreen:
+    Login:
+    Register:
+    Devices:
+    Publish:
+    Subscribe:
+    Register_Confirmed:
+
+<Button>:
+    size_hint: 0.4,0.1
+    pos_hint:{"center_x":0.5, "center_y":0.5}
+    
+<Label>:
+    font_size: 30
+    color:[1,1,1,1]
+
+<StartScreen>:
+    name:"start"
+    FloatLayout:
+        Label:
+            text: "Welcome"
+            pos_hint:{"center_x":0.5, "center_y": 0.8}
+        Button:
+            text: "Login"
+            font_size: 20
+            pos_hint:{"center_x":0.5, "center_y": 0.55}
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'login'
+            
+        Button:
+            text: "Register"
+            font_size: 20
+            pos_hint:{"center_x":0.5, "center_y": 0.35}
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'register'
+
+        Button:
+            text: "Exit"
+            font_size: 20
+            pos_hint:{"center_x":0.5, "center_y":0.15}
+            on_release:
+                root.ext()
+            
+<Login>:
+    name:"login"
+
+    FloatLayout:
+        TextInput:
+            id:username_login
+            text:""
+            size_hint: 0.6,0.06
+            pos_hint:{"center_x":0.5, "center_y":0.65}
+
+        TextInput:
+            id:password_login
+            text:""
+            size_hint: 0.6,0.06
+            pos_hint:{"center_x":0.5, "center_y":0.45}
+
+        Label:
+            text: "Username"
+            pos_hint:{"center_x":0.5, "center_y": 0.75}
+            font_size: 25
+
+        Label:
+            text: "Password"
+            pos_hint:{"center_x":0.5, "center_y": 0.55}
+            font_size: 25
+            password: True
+
+        Label:
+            id:wrong_pass_text
+            text:"Username or Password is incorrect"
+            pos_hint:{"center_x":0.5, "center_y":0.385}
+            font_size:15
+            opacity:0
+
+        Button:
+            text: "Login"
+            font_size: 20
+            pos_hint:{"center_x":0.5, "center_y": 0.30}
+            on_release:
+                if root.login_btn() == True: app.root.current = "devices"
+
+        Button:
+            text: "Back"
+            font_size: 20
+            pos_hint:{"center_x":0.5, "center_y": 0.15}
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "start"
+
+<Register>:
+    name:"register"
+
+    FloatLayout:
+        TextInput:
+            id:username_register
+            text:""
+            size_hint: 0.6,0.06
+            pos_hint:{"center_x":0.5, "center_y":0.65}
+
+        TextInput:
+            id:password_register
+            text:""
+            size_hint: 0.6,0.06
+            pos_hint:{"center_x":0.5, "center_y":0.45}
+
+        Label:
+            text: "Username"
+            pos_hint:{"center_x":0.5, "center_y": 0.75}
+            font_size: 25
+
+        Label:
+            text: "Password"
+            pos_hint:{"center_x":0.5, "center_y": 0.55}
+            font_size: 25
+            password: True
+
+        Label:
+            id:username_taken
+            text:"Username is taken"
+            pos_hint:{"center_x":0.5, "center_y":0.385}
+            font_size:15
+            opacity:0
+
+        Button:
+            text: "Register"
+            font_size: 20
+            pos_hint:{"center_x":0.5, "center_y": 0.30}
+            on_release:
+                if root.reg_btn() == True: app.root.current = "register_confirmed"
+
+        Button:
+            text: "Back"
+            font_size: 20
+            pos_hint:{"center_x":0.5, "center_y": 0.15}
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "start"
+
+<Register_Confirmed>
+    name:"register_confirmed"
+    FloatLayout:
+        Label:
+            text:"Congrats your account is\n now registered.\n You can now log\n in to your account"
+            pos_hint:{"center_x":0.5, "center_y":0.65}
+            #text_size: self.size
+            halign: "center"
+            font_size:15
+
+        Button:
+            text: "Return"
+            pos_hint:{"center_x": 0.5, "center_y": 0.35}
+            on_press:
+                root.manager.transition.direction = "right"
+                app.root.current = "start"
+
+<Devices>:
+    name:"devices"
+    FloatLayout:
+        Button:
+            text: "Publish"
+            size_hint: 0.4,0.1
+            pos_hint:{"center_x":0.5, "center_y":0.75}
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'publish'
+
+        Button:
+            text: "Subscribe"
+            size_hint: 0.4,0.1
+            pos_hint:{"center_x":0.5, "center_y":0.5}
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'subscribe'
+
+        Button:
+            text: "Logout"
+            pos_hint:{"center_x":0.5, "center_y":0.25}
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'start'
+
+
+
+<Publish>:
+    name:"publish"
+    FloatLayout:
+        Label:
+            text: "Publish Screen"
+            font_size: 30
+            pos_hint:{"center_x":0.5, "center_y":0.9}
+            color:[1,1,1,1]
+
+        TextInput:
+            id:send_mqtt_message
+            text:""
+            size_hint: 0.8,0.3
+            pos_hint:{"center_x":0.5, "center_y":0.65}
+
+        Button:
+            text:"Send MQTT Message"
+            font_size:11
+            size_hint: 0.5,0.08
+            pos_hint:{"center_x":0.5, "center_y":0.30}
+            on_press: root.on_press_publish()
+
+        Button:
+            text:"Go Back"
+            size_hint: 0.35,0.1
+            pos_hint:{"center_x":0.5, "center_y":0.12}
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "devices"
+
+<Subscribe>:
+    name:"subscribe"
+
+    FloatLayout:
+        Label:
+            text: "Subscribe Screen"
+            font_size: 30
+            pos_hint:{"center_x":0.5, "center_y":0.9}
+            color:[1,1,1,1]
+
+        Label:
+            id:receive_mqtt_message
+            text:""
+            color:0,0,0,1
+
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,1
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            text_size: self.size
+            halign: "left"
+            valign: "top"
+
+            size_hint: 0.8,0.3
+            pos_hint:{"center_x":0.5, "center_y":0.65}
+
+        Button:
+            text:"Receive MQTT"
+            font_size:11
+            size_hint: 0.35,0.08
+            pos_hint:{"center_x":0.25, "center_y":0.30}
+            on_press: root.on_press_subscribe()
+
+        Button:
+            text:"Clear Message"
+            font_size:11
+            size_hint: 0.35,0.08
+            pos_hint:{"center_x":0.75, "center_y":0.30}
+            on_press: root.clear_message()
+
+        Button:
+            text:"Go Back"
+            size_hint: 0.35,0.1
+            pos_hint:{"center_x":0.5, "center_y":0.12}
+            on_release:
+                root.manager.transition.direction = "right"
+                app.root.current = "devices"

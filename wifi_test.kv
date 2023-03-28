@@ -1,0 +1,18 @@
+<Read>:
+    FloatLayout:
+        Label:
+            id:wifi_text
+            pos_hint: {"center_x":0.5, "center_y": 0.75}
+            font_size: 25
+            text: "This is a test, this will be a long sentence to see if I can make the text wrap in the screen"
+            text_size: self.width, None
+            color:[1,1,1,1]
+
+
+        Button:
+            text:"Get Wifi"
+            font_size:30
+            pos_hint: {"center_x":0.5, "center_y":0.25}
+            size_hint: 0.4, 0.1
+            on_press:
+                root.get_wifi()
